@@ -1,0 +1,74 @@
+<div class="container">
+  <header class="header">
+    <h2>
+      Welcome {{ user.username }}
+      <span class="role" *ngIf="user.role === 'ADMIN'">Admin</span>
+    </h2>
+    <h1>Task Manager</h1>
+  </header>
+<div class="actions">
+  <button class="secondary" (click)="logout()">
+   log Out
+  </button>
+</div>
+
+  <div class="task-input">
+    <input
+      [(ngModel)]="title"
+      placeholder="Enter task name"
+      (keyup.enter)="addTask()"
+    />
+    <button class="primary" (click)="addTask()">Add Task</button>
+  </div>
+
+ <ul class="task-list" *ngIf="tasks$ | async as tasks">
+  <li class="task-card" *ngFor="let task of tasks">
+    <div class="task-info">
+      <div class="task-title">{{ task.title }}</div>
+
+      <div class="task-meta">
+        <span class="creator">👤 {{ task.userId }}</span>
+        <span
+          class="status"
+          [class.done]="task.status === 'DONE'"
+          [class.open]="task.status === 'OPEN'"
+        >
+          {{ task.status }}
+        </span>
+      </div>
+    </div>
+
+  <button
+  class="done-btn"
+  *ngIf="task.status === 'OPEN' && user.username === 'admin'"
+  (click)="markDone(task.id)"
+>
+  ✔ Mark Done
+</button>
+
+  </li>
+</ul>
+<div class="pagination" *ngIf="tasks$ | async as tasks">
+  <button
+    class="secondary"
+    (click)="prevPage()"
+    [disabled]="offset === 0"
+  >
+    ⬅ Previous
+  </button>
+
+  <span class="page-info">
+    Showing {{ offset + 1 }} – {{ offset + tasks.length }}
+  </span>
+
+  <button
+    class="secondary"
+    (click)="nextPage()"
+    [disabled]="tasks.length < limit"
+  >
+    Next ➡
+  </button>
+</div>
+
+
+</div>
