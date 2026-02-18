@@ -1,22 +1,46 @@
-"build": {
-  "builder": "@angular/build:application",
-  "options": {
-    "outputPath": "dist/angular-graphql-task",
-    "index": "src/index.html",
-    "browser": "src/main.ts",
-    "tsConfig": "tsconfig.app.json",
-    "assets": [
-      "src/assets"
-    ],
-    "styles": [
-      "src/styles.css"
-    ]
-  },
-  "configurations": {
-    "production": {
-      "optimization": true,
-      "outputHashing": "all"
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "projects": {
+    "angular-graphql-task": {
+      "projectType": "application",
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "outputPath": "dist/angular-graphql-task",
+            "index": "src/index.html",
+            "browser": "src/main.ts",
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "outputHashing": "all"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "options": {
+            "buildTarget": "angular-graphql-task:build"
+          }
+        }
+      }
     }
   },
-  "defaultConfiguration": "production"
+  "defaultProject": "angular-graphql-task",
+  "cli": {
+    "analytics": "2a43a0c4-38c3-4ff0-82c5-f449aaa52a01"
+  }
 }
